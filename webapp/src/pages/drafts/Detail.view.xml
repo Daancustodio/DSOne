@@ -1,0 +1,222 @@
+<core:View
+    xmlns:core="sap.ui.core"
+    xmlns="sap.uxap"
+    xmlns:layout="sap.ui.layout"
+    xmlns:m="sap.m"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:tnt="sap.tnt"	
+	controllerName="DecisionsOne.src.pages.drafts.Detail"
+	height="100%">
+    <m:Page
+		title="{i18n>Document.Pending}"
+    	showNavButton="true" 
+		floatingFooter="true"
+		showFooter="false"
+		id="pageDraftDetail"
+    	navButtonPress="onNavBack">
+        <m:headerContent>        	
+			<m:Button
+				icon="sap-icon://cancel"
+				text="{i18n>Commom.Cancel}"
+				press="onCancelPress" />
+			<m:Button
+				icon="sap-icon://edit"
+				press="onEditPress" />
+				
+		</m:headerContent>
+        <m:content>
+            <m:ObjectHeader
+				title="{i18n>Document.PurchaseRequest} {DocEntry}"
+				backgroundDesign="Solid"
+				number="{	
+					parts: [{path:'DocTotalSys'},{path:'DocCurrency'}],
+					type:'sap.ui.model.type.Currency',
+					formatOptions: {showMeasure:true}
+				}"
+				>
+                <m:attributes>
+                    <m:ObjectAttribute title="{i18n>Document.DocDate}" text="{
+								path: 'DocDate',type: 'sap.ui.model.type.DateTime', 
+												formatOptions: {
+													source: {
+														pattern: 'yyyy-MM-dd'
+													},
+													pattern: 'dd/MM/yyyy'
+												}
+								}"/>
+                    <m:ObjectAttribute title="{i18n>Document.DocDueDate}" text="{
+								path: 'DocDueDate',type: 'sap.ui.model.type.DateTime', 
+												formatOptions: {
+													source: {
+														pattern: 'yyyy-MM-dd'
+													},
+													pattern: 'dd/MM/yyyy'
+												}
+								}"/>
+                    <m:ObjectAttribute title="{i18n>Document.ReqDate}" text="{
+								path: 'RequriedDate',
+								type: 'sap.ui.model.type.DateTime', 
+								formatOptions: {
+									source: {
+										pattern: 'yyyy-MM-dd'
+										},
+										pattern: 'dd/MM/yyyy'
+									}
+								}"/>
+                    <m:ObjectAttribute title="{i18n>Document.TaxDate}" text="{
+								path: 'TaxDate',
+								type: 'sap.ui.model.type.DateTime', 
+								formatOptions: {
+									source: {
+										pattern: 'yyyy-MM-dd'
+										},
+										pattern: 'dd/MM/yyyy'
+									}
+								}"/>
+                </m:attributes>
+				<m:firstStatus>
+				<m:ObjectStatus	
+						title="{i18n>Document.Document}"					
+						text="{parts:[{path:'DocumentStatus'},{path:'Cancelled'}], formatter:'.fmt.formatDocumentStatus'}" 
+						state="{parts:[{path:'DocumentStatus'},{path:'Cancelled'}], formatter:'.fmt.formatDocumentStatusState'}"
+					/>
+				</m:firstStatus>
+				<m:secondStatus>
+				<m:ObjectStatus	
+						title="{i18n>Document.DocumentAuthorizationStatus}"					
+						text="{path:'AuthorizationStatus', formatter:'.fmt.formatDocumentAuthorizationStatus'}" 
+						state="{path:'AuthorizationStatus', formatter:'.fmt.formatDocumentAuthorizationStatusState'}"
+					/>
+				</m:secondStatus>
+				
+                <m:statuses>
+                    
+					<m:Label text="{i18n>Document.Obs}" />
+            		<m:Text  text="{Comments}"/>
+                </m:statuses>
+            </m:ObjectHeader>
+            <m:Table id="idProductsTable"
+							 
+							 width="auto"                	               	
+					
+					items="{
+						path: '/DocumentLines',
+						sorter: {
+							path: 'Name'
+						}
+					}">
+                <m:columns>
+                    <m:Column                        	
+                         	minScreenWidth="Phone"
+                         	demandPopin="true"
+							>
+                        <m:Text text="{i18n>DocumentLine.ItemCode}" />
+                    </m:Column>
+                    <m:Column
+							width="3.1em"
+							demandPopin="false"
+							minScreenWidth="Phone"
+							hAlign="End">
+                        <m:Text text="{i18n>DocumentLine.QtdReq}" />
+                    </m:Column>
+                    <m:Column
+							width="6em"
+							minScreenWidth="Phone"													
+							hAlign="End">
+                        <m:Text text="{i18n>DocumentLine.InfoPrice}" />
+                    </m:Column>
+                    <m:Column 
+							minScreenWidth="Tablet"
+							width="7.5em">
+                        <m:Text text="{i18n>Document.ReqDate}" />
+                    </m:Column>
+                    <m:Column	
+							width="7em"
+							demandPopin="true"
+							popinDisplay="Inline"
+							popinHAlign="Begin"							
+							minScreenWidth="Tablet">
+                        <m:Text text="{i18n>DocumentLine.Distribuition}" />
+                    </m:Column>
+                    <m:Column 
+							width="6em"
+							demandPopin="true"
+							popinDisplay="Inline"
+							popinHAlign="End"							
+							minScreenWidth="Tablet">
+                        <m:Text text="{i18n>Document.Project}" />
+                    </m:Column>
+                    <m:Column 						
+							width="9em"
+							demandPopin="true"	
+							popinDisplay="Inline"
+							minScreenWidth="Tablet"		
+							popinHAlign="End"										
+							hAlign="End">
+                        <m:Text text="{i18n>DocumentLine.TotalMC}" />
+                    </m:Column>
+                </m:columns>
+                <m:items>
+                    <m:ColumnListItem>
+                        <m:cells>
+                            <m:ObjectIdentifier
+									title="{ItemCode}"
+									text="{ItemDescription}"/>
+                            <m:ObjectNumber																		
+									number="{Quantity}"
+									unit="{MeasureUnit}"
+								/>
+                            <m:ObjectNumber																		
+									number="{
+											parts:[{path:'Price'},{path:'Currency'}],
+											type: 'sap.ui.model.type.Currency',
+											formatOptions: {showMeasure: true}
+										}"
+								/>
+                            <m:Text text="{
+								path: 'RequiredDate',
+								type: 'sap.ui.model.type.DateTime', 
+								formatOptions: {
+									source: {
+										pattern: 'yyyy-MM-dd'
+										},
+										pattern: 'dd/MM/yyyy'
+									}
+								}" />
+                            <tnt:InfoLabel
+									text="{CostingCodes}"
+									displayOnly="true"
+									colorScheme= "1"/>
+                            <m:Text text="{ProjectCode}" />
+                            <m:ObjectNumber																		
+									number="{
+											parts:[{path:'LineTotal'},{path:'Currency'}],
+											type: 'sap.ui.model.type.Currency',
+											formatOptions: {showMeasure: true}
+										}"
+								/>
+                        </m:cells>
+                    </m:ColumnListItem>
+                </m:items>
+            </m:Table>
+        </m:content>
+		<m:footer>
+			<m:Bar>				
+				<m:contentRight>					
+					<m:Button
+					icon="sap-icon://accept"
+					text="{i18n>Commom.Accept}"
+					type="Accept"
+					press="onApprove" />	
+					<m:Button
+					class="sapUiTinyMarginBegin"
+					type="Reject"
+					icon="sap-icon://decline"
+					text="{i18n>Commom.Reject}"
+					press="onDecline" />	
+				</m:contentRight>		
+			</m:Bar>
+		</m:footer>
+    </m:Page>
+	
+</core:View>

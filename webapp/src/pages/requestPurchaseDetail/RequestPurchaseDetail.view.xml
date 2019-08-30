@@ -1,0 +1,204 @@
+<core:View
+	controllerName="DecisionsOne.src.pages.requestPurchaseDetail.RequestPurchaseDetail"
+	xmlns:core="sap.ui.core"        
+    xmlns:qr="DecisionsOne.controls.qrcode"
+    xmlns:tnt="sap.tnt"	
+    xmlns="sap.m"        
+	height="100%">
+	 <Page
+    	showNavButton="true" 
+    	navButtonPress="onNavBack">
+        <headerContent>
+        	<Button
+				icon="sap-icon://decline"
+				text="{i18n>Commom.Close}"
+				press="onClosePress" />
+			<Button
+				icon="sap-icon://cancel"
+				text="{i18n>Commom.Cancel}"
+				press="onCancelPress" />
+			<Button
+				icon="sap-icon://edit"
+				press="onEditPress" />
+				
+		</headerContent>
+        <content>
+            <ObjectHeader
+				title="{i18n>Document.PurchaseRequest} {DocEntry}"
+				backgroundDesign="Solid"
+				number="{	
+					parts: [{path:'DocTotalSys'},{path:'DocCurrency'}],
+					type:'sap.ui.model.type.Currency',
+					formatOptions: {showMeasure:true}
+				}"
+				>
+                <attributes>
+                    <ObjectAttribute title="{i18n>Document.DocDate}" text="{
+								path: 'DocDate',type: 'sap.ui.model.type.DateTime', 
+												formatOptions: {
+													source: {
+														pattern: 'yyyy-MM-dd'
+													},
+													pattern: 'dd/MM/yyyy'
+												}
+								}"/>
+                    <ObjectAttribute title="{i18n>Document.DocDueDate}" text="{
+								path: 'DocDueDate',type: 'sap.ui.model.type.DateTime', 
+												formatOptions: {
+													source: {
+														pattern: 'yyyy-MM-dd'
+													},
+													pattern: 'dd/MM/yyyy'
+												}
+								}"/>
+                    <ObjectAttribute title="{i18n>Document.ReqDate}" text="{
+								path: 'RequriedDate',
+								type: 'sap.ui.model.type.DateTime', 
+								formatOptions: {
+									source: {
+										pattern: 'yyyy-MM-dd'
+										},
+										pattern: 'dd/MM/yyyy'
+									}
+								}"/>
+                    <ObjectAttribute title="{i18n>Document.TaxDate}" text="{
+								path: 'TaxDate',
+								type: 'sap.ui.model.type.DateTime', 
+								formatOptions: {
+									source: {
+										pattern: 'yyyy-MM-dd'
+										},
+										pattern: 'dd/MM/yyyy'
+									}
+								}"/>
+                </attributes>
+				<firstStatus>
+				<ObjectStatus	
+						title="{i18n>Document.Document}"					
+						text="{parts:[{path:'DocumentStatus'},{path:'Cancelled'}], formatter:'.fmt.formatDocumentStatus'}" 
+						state="{parts:[{path:'DocumentStatus'},{path:'Cancelled'}], formatter:'.fmt.formatDocumentStatusState'}"
+					/>
+				</firstStatus>
+				<secondStatus>
+				<ObjectStatus	
+						title="{i18n>Document.DocumentAuthorizationStatus}"					
+						text="{path:'AuthorizationStatus', formatter:'.fmt.formatDocumentAuthorizationStatus'}" 
+						state="{path:'AuthorizationStatus', formatter:'.fmt.formatDocumentAuthorizationStatusState'}"
+					/>
+				</secondStatus>
+                <statuses>
+                    
+					<Label text="{i18n>Document.Obs}" />
+            		<Text  text="{Comments}"/>
+                </statuses>
+            </ObjectHeader>
+            <Table id="idProductsTable"
+							 
+							 width="auto"                	               	
+					
+					items="{
+						path: '/DocumentLines',
+						sorter: {
+							path: 'Name'
+						}
+					}">
+                <columns>
+                    <Column                        	
+                         	minScreenWidth="Phone"
+                         	demandPopin="true"
+							>
+                        <Text text="{i18n>DocumentLine.ItemCode}" />
+                    </Column>
+                    <Column
+							width="5em"
+							demandPopin="false"
+							minScreenWidth="Phone"
+							hAlign="End">
+                        <Text text="{i18n>DocumentLine.QtdReq}" />
+                    </Column>
+                    <Column
+							minScreenWidth="Phone"													
+							hAlign="End">
+                        <Text text="{i18n>DocumentLine.InfoPrice}" />
+                    </Column>
+                    <Column minScreenWidth="Tablet">
+                        <Text text="{i18n>Document.ReqDate}" />
+                    </Column>
+                    <Column	
+							demandPopin="true"
+							popinDisplay="Inline"
+							popinHAlign="Begin"							
+							minScreenWidth="Tablet">
+                        <Text text="{i18n>DocumentLine.Distribuition}" />
+                    </Column>
+                    <Column 
+							demandPopin="true"
+							popinDisplay="Inline"
+							popinHAlign="End"							
+							minScreenWidth="Tablet">
+                        <Text text="{i18n>Document.Project}" />
+                    </Column>
+                    <Column 						
+							demandPopin="true"	
+							popinDisplay="Inline"
+							minScreenWidth="Tablet"		
+							popinHAlign="End"										
+							hAlign="End">
+                        <Text text="{i18n>DocumentLine.TotalMC}" />
+                    </Column>
+                    <Column 						
+							demandPopin="true"	
+							popinDisplay="Inline"
+							minScreenWidth="Tablet"		
+							popinHAlign="End"										
+							hAlign="End">
+                        <Text text="{i18n>Commom.QrCode}" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem>
+                        <cells>
+                            <ObjectIdentifier
+									title="{ItemDescription}"
+									text="{ItemCode}"/>
+                            <ObjectNumber																		
+									number="{Quantity}"
+									unit="{MeasureUnit}"
+								/>
+                            <ObjectNumber																		
+									number="{
+											parts:[{path:'Price'},{path:'Currency'}],
+											type: 'sap.ui.model.type.Currency',
+											formatOptions: {showMeasure: true}
+										}"
+								/>
+                            <Text text="{
+								path: 'RequiredDate',
+								type: 'sap.ui.model.type.DateTime', 
+								formatOptions: {
+									source: {
+										pattern: 'yyyy-MM-dd'
+										},
+										pattern: 'dd/MM/yyyy'
+									}
+								}" />
+                            <tnt:InfoLabel
+									text="{CostingCodes}"
+									displayOnly="true"
+									colorScheme= "1"/>
+                            <Text text="{ProjectCode}" />
+                            <ObjectNumber																		
+									number="{
+											parts:[{path:'LineTotal'},{path:'Currency'}],
+											type: 'sap.ui.model.type.Currency',
+											formatOptions: {showMeasure: true}
+										}"
+								/>
+								<qr:QRCode value="{qrCodeData}"/>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content> 
+    </Page>
+</core:View>

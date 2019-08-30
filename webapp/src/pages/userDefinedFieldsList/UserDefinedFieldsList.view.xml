@@ -1,0 +1,54 @@
+<mvc:View
+	controllerName="DecisionsOne.src.pages.userDefinedFieldsList.UserDefinedFieldsList"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:grid="sap.ui.layout.cssgrid"
+    xmlns:f="sap.f"	
+	height="100%">
+    <Page 
+        navButtonPress="onNavBack" 
+		title="{i18n>Commom.UserDefinedFields}"
+		showNavButton="true">
+        <headerContent>
+            <Button
+			icon="sap-icon://add"
+			press="onCreate" />
+        </headerContent>
+        <content>
+            <Panel id="panelForGridList">
+                <headerToolbar>
+                    <Toolbar>
+                        <Title text="{i18n>Commom.Search}"/>
+                        <ToolbarSpacer />
+                        <SearchField placeholder="{i18n>UserDefinedFields.FindTable}" search="filterData" width="67%" />
+                    </Toolbar>
+                </headerToolbar>
+                <content>
+                    <List
+					mode="sap.m.ListMode.SingleSelect"
+					id="idList"
+					items="{
+						path: '/',
+						sorter: {
+							path: 'TableName',
+							descending: false,
+							group: true
+							
+						},			
+						groupHeaderFactory: '.getGroupHeader'
+					}">                     
+                        <StandardListItem
+						press="onDetail"
+						type="Navigation"
+						title="{TableName}"
+						description="{Type}"
+						icon="{ProductPicUrl}"
+						iconDensityAware="false"
+						iconInset="false" />
+                    </List>
+                </content>
+            </Panel>
+        </content>
+    </Page>
+</mvc:View>

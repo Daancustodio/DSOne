@@ -1,0 +1,18 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<SelectDialog		
+		title="{i18n>Commom.Select}"
+		confirm="handleSelectDialog"		
+		items="{
+			path: '/'
+		}" >
+		<StandardListItem
+			title="{title}"
+			description="{description}"
+			icon="{picUrl}"
+			iconDensityAware="false"
+			iconInset="false"
+			type="Active" />
+	</SelectDialog>
+</core:FragmentDefinition>

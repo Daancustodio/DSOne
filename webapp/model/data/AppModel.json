@@ -1,0 +1,42 @@
+{
+  "navigation": [
+    {
+      "title": "Commom.Home",
+      "icon": "sap-icon://bbyd-dashboard",
+      "expanded": true,
+      "key": "dashBoard"
+    },
+    {
+      "title": "Document.PurchaseRequest",
+      "icon": "sap-icon://request",
+      "expanded": true,
+      "key": "purchaseRequest"
+    },
+    {
+      "title": "Document.Pendings",
+      "icon": "sap-icon://pending",
+      "expanded": true,
+      "key": "drafts"
+    },
+    {
+      "title": "Commom.UserDefinedFieldsList",
+      "icon": "sap-icon://table-column",
+      "expanded": true,
+      "key": "userDefinedFieldsList"
+    },
+    {
+      "title": "Commom.UserDefinedTables",
+      "icon": "sap-icon://table-view",
+      "expanded": true,
+      "key": "userDefinedTables"
+    }
+  ],
+  "fixedNavigation": [
+    {
+      "title": "Commom.Settings",
+      "icon": "sap-icon://settings",
+      "key": "settings"
+    }
+  ],
+  "headerItems": []
+}

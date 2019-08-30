@@ -1,0 +1,102 @@
+<mvc:View
+	controllerName="DecisionsOne.src.pages.userDefinedTablesDetail.UserDefinedTablesDetail"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"	
+	height="100%">
+    <Page 
+		showNavButton="true"
+        id="userTablesDetail" 
+		title="{i18n>Commom.UserDefinedTablesDetail}" 
+		navButtonPress="onNavBack">
+        <headerContent>
+            <Button
+			icon="sap-icon://edit"
+			press="onEdit" />
+        </headerContent>
+        <content>
+            <ObjectHeader
+				title="{Description}"
+				backgroundDesign="Solid"
+				number="{FieldID}"
+				>
+                <attributes>
+                    <ObjectAttribute title="{i18n>UserDefinedFields.Type}" text="{parts:[{path:'TableType'}], formatter:'.fmt.formatUserTableTipes'}"/>
+                    <ObjectAttribute title="{i18n>Commom.Description}" text="{TableDescription}"/>
+                </attributes>
+                <firstStatus>
+                    <ObjectStatus	
+						title="{i18n>UserDefinedFields.TableName}"					
+						text="{TableName}" 
+						state="Success"
+					/>
+                </firstStatus>
+                <secondStatus>
+                    <ObjectStatus	
+						title="{i18n>UserDefinedTables.Archivable}"											
+						text="{parts:[{path:'Archivable'}], formatter:'.fmt.tYesToLang'}" 
+						state="Success"
+					/>
+                </secondStatus>
+                <statuses>
+                    <Label text="{i18n>UserDefinedFields.LinkedTable}" />
+                    <Text  text="{LinkedTable}"/>
+                    <Label text="{i18n>UserDefinedFields.LinkedSystemObject}" />
+                    <Text  text="{LinkedSystemObject}"/>
+                    <Label text="{i18n>UserDefinedFields.LinkedUDO}" />
+                    <Text  text="{LinkedUDO}"/>
+                    <Label text="{i18n>UserDefinedFields.SubType}" />
+                    <Text  text="{SubType}"/>
+                </statuses>
+            </ObjectHeader>
+            <Table id="tableUserFields"
+							 headerText="{i18n>Commom.UserDefinedFieldsList}"
+							 width="auto"                	               	
+					
+					items="{/}">
+                <columns>
+                    <Column                        	
+                         	minScreenWidth="Phone"
+                         	demandPopin="true"
+							>
+                        <Text text="{i18n>UserDefinedFields.Name}" />
+                    </Column>
+                    <Column                        	
+                         	minScreenWidth="Phone"
+                         	demandPopin="true"
+							width="9em"                	               	
+
+							>
+                        <Text text="{i18n>UserDefinedFields.Type}" />
+                    </Column>
+                    <Column                        	
+                         	minScreenWidth="Phone"
+                         	demandPopin="true"
+							width="6em"                	               	
+
+							>
+                        <Text text="{i18n>UserDefinedFields.Size}" />
+                    </Column>
+                    <Column
+							width="9em"                	               	
+							demandPopin="false"
+							minScreenWidth="Phone"
+							hAlign="End">
+                        <Text text="{i18n>UserDefinedFields.DefaultValue}" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem press="onDetail"
+						type="Navigation">
+                        <cells>
+                            <ObjectIdentifier title="{Name}" text="{Description}" />
+                            <Text text="{Type}"/>
+                            <Text  text="{Size}"/>
+                            <Text text="{DefaultValue}"/>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+    </Page>
+</mvc:View>

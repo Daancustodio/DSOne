@@ -1,0 +1,152 @@
+<core:View
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+	controllerName="DecisionsOne.src.pages.drafts.List" height="100%">
+    <Page navButtonPress="onNavBack" 
+	showFooter="false"
+	floatingFooter="true"
+	id="pendingDocumentsListPage"
+	title="{i18n>Document.Pendings}"
+	showNavButton="true">
+        <headerContent>           
+            <Button
+					icon="sap-icon://refresh"
+					text="{i18n>Commom.Refesh}"
+					press="loadData" />
+        </headerContent>
+        <content>
+            <IconTabBar
+				id="idIconTabBar"
+				select="handleIconTabBarSelect"	
+				expandable="false" 
+				applyContentPadding="false" 
+				selectedKey="ME">
+                <items >
+                    <IconTabFilter
+						id="filterPendingForMe"						
+						iconColor="Positive"									
+						text="{i18n>Document.WaitingMeDecision}">
+                        <Table
+						mode="MultiSelect" 
+						id="myPendingDocuments"	
+						noDataText="{i18n>Document.NoneToApprove}"
+						alternateRowColors="true"						 
+						width="auto"    
+						items="{/ApprovalRequestsParams/}">
+                            <columns>
+                                
+                                <Column 
+									demandPopin="false"
+									minScreenWidth="Phone">
+                                    <Text text="{i18n>Document.ApprovalCode}/{i18n>Document.Obs}" />
+                                </Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem type="Detail" detailPress="onMyPendingDetail">
+                                    <cells>									
+                                        <ObjectIdentifier
+											text="{Remarks}"						
+											title="{Code}"/>                                        
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </IconTabFilter>
+                    <IconTabFilter
+						count="{RequestPurchase>/Open}"
+						iconColor="Positive"									
+						text="{i18n>Document.All}"
+						>
+                        <Table 
+						id="pendingDocuments"	
+						alternateRowColors="true"						 
+						width="auto"    
+						items="{/}">
+                            <columns>
+                                <Column                        	
+									minScreenWidth="Phone"
+									demandPopin="true"
+									>
+                                    <Text text="{i18n>Document.DocEntry}" />
+                                </Column>
+                                <Column
+									demandPopin="false"
+									minScreenWidth="Phone"
+									>
+                                    <Text text="{i18n>Document.DocumentStatus}" />
+                                </Column>
+                                <Column minScreenWidth="Tablet">
+                                    <Text text="{i18n>Document.ReqDate}" />
+                                </Column>
+                                <Column	
+									demandPopin="true"
+									popinDisplay="Inline"
+									popinHAlign="Begin"							
+									minScreenWidth="Tablet">
+                                    <Text text="{i18n>Document.RequesterName}" />
+                                </Column>
+                                <Column 						
+									demandPopin="true"	
+									popinDisplay="Inline"
+									minScreenWidth="Tablet"		
+									popinHAlign="End"										
+									hAlign="End">
+                                    <Text text="{i18n>DocumentLine.TotalMC}" />
+                                </Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem type="Navigation" press="onDetail">
+                                    <cells>
+                                        <Text						
+											text="{DocEntry}"/>
+                                        <ObjectStatus						
+											text="{path:'AuthorizationStatus', formatter:'.fmt.formatDocumentAuthorizationStatus'}" 
+											state="{path:'AuthorizationStatus', formatter:'.fmt.formatDocumentAuthorizationStatusState'}"
+									/>
+                                        <Text text="{
+										path: 'RequriedDate',
+										type: 'sap.ui.model.type.DateTime', 
+										formatOptions: {
+											source: {
+												pattern: 'yyyy-MM-dd'
+												},
+												pattern: 'dd/MM/yyyy'
+											}
+										}" />
+                                        <Text text="{RequesterName}" />
+                                        <ObjectNumber																		
+											number="{
+													parts:[{path:'DocTotalSys'},{path:'Currency'}],
+													type: 'sap.ui.model.type.Currency',
+													formatOptions: {showMeasure: true}
+												}"
+										/>
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </IconTabFilter>
+                </items>
+                <content></content>
+            </IconTabBar>
+        </content>
+		<footer>
+			<Bar>				
+				<contentRight>					
+					<Button
+					icon="sap-icon://accept"
+					text="{i18n>Commom.Accept}"
+					type="Accept"
+					press="onApprove" />	
+					<Button
+					class="sapUiTinyMarginBegin"
+					type="Reject"
+					icon="sap-icon://decline"
+					text="{i18n>Commom.Reject}"
+					press="onDecline" />	
+				</contentRight>		
+			</Bar>
+		</footer>
+    </Page>
+</core:View>

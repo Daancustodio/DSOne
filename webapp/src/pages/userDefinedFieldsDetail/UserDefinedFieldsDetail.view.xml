@@ -1,0 +1,91 @@
+<mvc:View
+	xmlns:mvc="sap.ui.core.mvc"
+	controllerName="DecisionsOne.src.pages.userDefinedFieldsDetail.UserDefinedFieldsDetail"
+	xmlns:core="sap.ui.core"    
+    xmlns="sap.m"        
+	height="100%">
+	<Page
+    	showNavButton="true" 
+    	navButtonPress="onNavBack">
+        <headerContent>        	
+			<!-- <Button
+				icon="sap-icon://edit"
+				press="onEditPress" /> -->
+				
+		</headerContent>
+        <content>
+            <ObjectHeader
+				title="{Name}"
+				backgroundDesign="Solid"
+				number="{FieldID}"
+				>
+                <attributes>
+                    <ObjectAttribute title="{i18n>UserDefinedFields.Description}" text="{Description}"/>
+                    <ObjectAttribute title="{i18n>UserDefinedFields.Type}" text="{Type}"/>
+                    <ObjectAttribute title="{i18n>UserDefinedFields.Size}" text="{Size}"/>
+                    <ObjectAttribute title="{i18n>UserDefinedFields.DefaultValue}" text="{DefaultValue}"/>
+                </attributes>
+				<firstStatus>
+				<ObjectStatus	
+						title="{i18n>UserDefinedFields.TableName}"					
+						text="{TableName}" 
+						state="Success"
+					/>
+				</firstStatus>
+				<secondStatus>
+				<ObjectStatus	
+						title="{i18n>UserDefinedFields.Mandatory}"											
+						text="{parts:[{path:'Mandatory'}], formatter:'.fmt.tYesToLang'}" 
+						state="{Success}"
+					/>
+				</secondStatus>
+                <statuses>                    
+					<Label text="{i18n>UserDefinedFields.LinkedTable}" />
+            		<Text  text="{LinkedTable}"/>
+					<Label text="{i18n>UserDefinedFields.LinkedSystemObject}" />
+            		<Text  text="{LinkedSystemObject}"/>
+					<Label text="{i18n>UserDefinedFields.LinkedUDO}" />
+            		<Text  text="{LinkedUDO}"/>
+					<Label text="{i18n>UserDefinedFields.SubType}" />
+            		<Text  text="{SubType}"/>
+                </statuses>
+            </ObjectHeader>
+            <Table id="validValuesTable"
+							 headerText="{i18n>UserDefinedFields.ValidValues}"
+							 width="auto"                	               	
+					
+					items="{
+						path: 'ValidValuesMD',
+						sorter: {
+							path: 'Name'
+						}
+					}">
+                <columns>
+                    <Column                        	
+                         	minScreenWidth="Phone"
+                         	demandPopin="true"
+							>
+                        <Text text="{i18n>UserDefinedFields.ValidValue}" />
+                    </Column>
+                    <Column
+							demandPopin="false"
+							minScreenWidth="Phone"
+							hAlign="End">
+                        <Text text="{i18n>UserDefinedFields.Description}" />
+                    </Column>                   
+                </columns>
+                <items>
+                    <ColumnListItem>
+                        <cells>
+                            <ObjectIdentifier
+									title="{Value}" />
+                            <ObjectIdentifier                            
+									title="{Description}"
+								/>                            
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+    </Page>
+</mvc:View>

@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DecisionsOne</title>
+  <script id="sap-ui-bootstrap" src="https://sapui5.hana.ondemand.com/1.65.0/resources/sap-ui-core.js"
+    data-sap-ui-libs="sap.m, sap.ui.layout, sap.uxap,sap.tnt,sap.suite.ui.commons" data-sap-ui-theme="sap_belize_plus"
+    data-sap-ui-compatVersion="edge" data-sap-ui-xx-bindingSyntax="complex" data-sap-ui-preload="async"
+    data-sap-ui-resourceroots='{"DecisionsOne": "./webapp"}'>
+  </script>
+  <script>
+    sap.ui.getCore().attachInit(function () {
+      sap.ui.require([
+        "sap/m/Shell",
+        "sap/ui/core/ComponentContainer"
+      ], function (Shell, ComponentContainer) {
+        sap.ui.component({
+          async: true,
+          name: "DecisionsOne"
+        }).then(function (oComp) {
+          new Shell({
+            app: new ComponentContainer({
+              height: "100%",
+              component: oComp
+            })
+          }).placeAt("content");
+        });
+      });
+    });
+
+  </script>
+  <link rel="stylesheet" type="text/css" href="webapp/css/style.css" />
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+  <link rel="manifest" href="webapp/manifest.json">
+  <script>
+    /* if ('serviceWorker' in navigator) {
+		  navigator.serviceWorker.register('sw.js')
+			.then(() => console.log('service worker instalado'))
+			.catch(err => console.error('Error', err));
+		} */
+  </script>
+</head>
+
+<body class="sapUiBody" id="content"></body>
+
+</html>

@@ -1,0 +1,51 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	id="fragmentDimensionChoose"
+	xmlns:l="sap.ui.layout" 
+    xmlns:cOne="DecisionsOne.controls"
+	xmlns:core="sap.ui.core">
+	<Dialog stretch="true" title="{i18n>Commom.Select} {i18n>DocumentLine.Distribuition}">
+	<content>   
+	 <Table inset="false"
+					items="{
+						path: 'Dimensions>/'						
+					}">                    
+                    <columns>
+                        <Column>
+							<Text text="{i18n>Commom.Dimension}" />
+						</Column>				
+						<Column>
+							<Text text="{i18n>DocumentLine.Distribuition}" />
+						</Column>									
+					</columns>
+					<items>
+						<ColumnListItem>
+							<cells>
+								<ObjectIdentifier
+									title="{Dimensions>DimensionDescription}"
+									text="{Dimensions>DimensionName}" />	
+									<cOne:CenterCostsSearch
+									 	dimension="{Dimensions>DimensionCode}"
+									 	enableSuggestions="true"        								
+        								suggest="onSuggest"
+        								value="{Dimensions>SelectedDistribuition}"
+        								search="onDistribuitionPress"  
+										suggestionItems="{
+											path: 'DistributionRules>/',
+											templateShareable:false
+										}" width="100%">  
+										
+										<SuggestionItem  text="{DistributionRules>FactorCode} - {DistributionRules>FactorDescription}"  key="{DistributionRules>FactorCode}" />
+										
+									</cOne:CenterCostsSearch>																
+							</cells>
+						</ColumnListItem>
+                    </items>
+                </Table>
+    </content>
+    <buttons>
+    	<Button   type="Accept" text="{i18n>Commom.Conclude}" press="onConclude"  />
+    	<Button   type="Reject" text="{i18n>Commom.Cancel}"  press="onCancel" />
+    </buttons>
+    </Dialog>
+</core:FragmentDefinition>

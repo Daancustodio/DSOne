@@ -1,0 +1,136 @@
+<core:View
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:custom="DecisionsOne.controls"
+    xmlns:mc="sap.suite.ui.microchart"
+	controllerName="DecisionsOne.src.pages.purchaseRequest.List" height="100%">
+    <Page 
+		navButtonPress="onNavBack" 
+		title="{i18n>Document.PurchaseRequest}"
+		showNavButton="true">
+        <headerContent>
+            <Button
+					icon="sap-icon://add"
+					press="onCreate" />
+            <Button
+					icon="sap-icon://refresh"
+					text="{i18n>Commom.Refesh}"
+					press="loadData" />
+        </headerContent>
+        <content>
+			
+            <IconTabBar
+					id="idIconTabBar"
+					select="handleIconTabBarSelect"	
+					expandable="true" 
+					expanded="true" 
+					applyContentPadding="false" 
+					selectedKey="bost_Open">
+                <items >
+                    <IconTabFilter
+							count="{RequestPurchase>/Open}"
+							iconColor="Positive" 
+								
+							text="{i18n>Document.Status.O}"
+							key="bost_Open" />
+                    <IconTabFilter
+							
+							iconColor="Critical"
+							count="{RequestPurchase>/Rejected}" 
+							text="{i18n>Document.Status.N}"
+							key="canceled" />
+                    <IconTabFilter
+							
+							iconColor="Negative"						 
+							text="{i18n>Document.Status.C}"
+							key="bost_Close" />
+                </items>
+                <content>
+                    <Table 
+						id="purchaseRequests"	
+						alternateRowColors="true"						 
+						width="auto"  
+						items="{/}"  
+						>
+                        <headerToolbar>
+                            <Toolbar>
+                                <SearchField />
+                                <ToolbarSpacer/>
+                            </Toolbar>
+                        </headerToolbar>
+                        <columns>
+                            <Column                        	
+									minScreenWidth="Phone"
+									demandPopin="true"
+									>
+                                <Text text="{i18n>Document.DocEntry}" />
+                            </Column>
+                            <Column
+									demandPopin="false"
+									minScreenWidth="Phone"
+									>
+                                <Text text="{i18n>Document.DocumentStatus}" />
+                            </Column>
+                            <Column minScreenWidth="Tablet">
+                                <Text text="{i18n>Document.ReqDate}" />
+                            </Column>
+                            <Column	
+									demandPopin="true"
+									popinDisplay="Inline"
+									popinHAlign="Begin"							
+									minScreenWidth="Tablet">
+                                <Text text="{i18n>Document.RequesterName}"  />
+                            </Column>
+                            <Column 						
+									demandPopin="true"	
+									popinDisplay="Inline"
+									minScreenWidth="Tablet"		
+									popinHAlign="End"										
+									hAlign="End">
+                                <Text text="{i18n>DocumentLine.TotalMC}" />
+                            </Column>
+                        </columns>
+                        <items>
+                            <ColumnListItem type="Navigation" press="onDetail">
+                                <cells>
+                                    <Text						
+											text="{DocEntry}"/>
+                                    <ObjectStatus						
+											text="{parts:[{path:'DocumentStatus'},{path:'Cancelled'}], formatter:'.fmt.formatDocumentStatus'}" 
+											state="{parts:[{path:'DocumentStatus'},{path:'Cancelled'}], formatter:'.fmt.formatDocumentStatusState'}"
+									/>
+                                    <Text text="{
+										path: 'RequriedDate',
+										type: 'sap.ui.model.type.DateTime', 
+										formatOptions: {
+											source: {
+												pattern: 'yyyy-MM-dd'
+												},
+												pattern: 'dd/MM/yyyy'
+											}
+										}" />
+                                    <Text text="{RequesterName}" />
+                                    <ObjectNumber																		
+											number="{
+													parts:[{path:'DocTotalSys'},{path:'Currency'}],
+													type: 'sap.ui.model.type.Currency',
+													formatOptions: {showMeasure: true}
+												}"
+										/>
+                                </cells>
+                            </ColumnListItem>
+                        </items>
+                    </Table>
+                  <!--   <FlexBox					
+						alignItems="Center"	
+						direction="Column"				
+						justifyContent="SpaceBetween">
+                        <items>
+                            <custom:Paginator count="{Pagination>/pageCount}" onSelectPage="onPageChanged"/>
+                        </items>
+                    </FlexBox> -->
+                </content>
+            </IconTabBar>
+        </content>
+    </Page>
+</core:View>

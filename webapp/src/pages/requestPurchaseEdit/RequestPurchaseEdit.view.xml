@@ -1,0 +1,24 @@
+<mvc:View
+	controllerName="DecisionsOne.src.pages.requestPurchaseEdit.RequestPurchaseEdit"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"	
+	height="100%">
+	<Page 
+		navButtonPress="onNavBack" 
+		title="{i18n>Commom.Edit} {i18n>Document.PurchaseRequest} {DocEntry}"
+		showNavButton="true">
+		
+	<content>	
+	 <core:Fragment fragmentName="DecisionsOne.src.pages.requestPurchaseEdit.RequestPurchaseEdit" type="XML"> </core:Fragment>
+	</content>
+	<footer>
+			<Bar>							
+				<contentRight>
+					<Button press="onSavePress" text="{i18n>Commom.Save}" />
+				</contentRight>
+			</Bar>
+		</footer>	
+	
+	</Page>
+</mvc:View>

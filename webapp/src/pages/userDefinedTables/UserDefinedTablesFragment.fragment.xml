@@ -1,0 +1,32 @@
+<core:FragmentDefinition 
+xmlns="sap.m" 	
+xmlns:core="sap.ui.core" 
+>
+	<Dialog title="{view>/Title}" class="sapUiPopupWithPadding">	
+		<beginButton>	
+			<Button type="Accept" text="{i18n>Commom.Save}" press="onDialogSave" />		
+		</beginButton>
+		<endButton>
+			<Button type="Reject"  text="{i18n>Commom.Cancel}" press="onDialogCancel" />
+		</endButton>
+		<content>
+				<VBox>
+                    <Label text="{i18n>UserTables.TableName}" />
+					<Input  placeholder="{i18n>UserTables.TableName}" value="{/TableName}"></Input>
+                    <Label text="{i18n>UserTables.TableDescription}" />
+					<Input  placeholder="{i18n>UserTables.TableDescription}" value="{/TableDescription}"></Input>
+                    <Label text="{i18n>UserTables.TableType}" />
+					<Select
+							forceSelection="false"
+							selectedKey="{/TableType}">
+							<core:Item key="bott_NoObject" text="{i18n>UserTables.NoObject}" />
+							<core:Item key="bott_MasterData" text="{i18n>UserTables.Register}" />
+							<core:Item key="bott_MasterDataLines" text="{i18n>UserTables.RegisterLines}" />
+							<core:Item key="bott_Document" text="{i18n>UserTables.Document}" />
+							<core:Item key="bott_DocumentLines" text="{i18n>UserTables.DocumentLines}" />
+							<core:Item key="bott_NoObjectAutoIncrement" text="{i18n>UserTables.NoObjectAutoIncrement}" />							
+					</Select>						
+			</VBox>
+		</content>
+	</Dialog>
+</core:FragmentDefinition>

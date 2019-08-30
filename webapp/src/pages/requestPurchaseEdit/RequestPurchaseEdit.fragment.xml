@@ -1,0 +1,211 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core">
+    <IconTabBar	applyContentPadding="false">
+        <items>
+            <IconTabFilter
+				text="{i18n>Commom.General}">
+                <f:SimpleForm id="purchaseRequestForm"
+					editable="true"
+					layout="ColumnLayout"			
+					columnsM="2"
+					columnsL="3"
+					columnsXL="3"
+					>
+                    <f:content>
+                        <core:Title text="{i18n>Document.Requester} "/>
+                        <Label text="{i18n>Document.Requester}" />
+                        <Select
+							forceSelection="false"
+							selectedKey="0">
+							<core:Item key="0" text="Usuario" />
+							<core:Item key="1" text="Funcionario" />
+							<layoutData>
+								<f:ColumnElementData cellsSmall="5" cellsLarge="3" />
+							</layoutData>
+						</Select>
+						<SearchField value="{Requester}" />                      
+						
+                        <Label text="{i18n>Document.RequesterName}" />
+                        <Text text="{RequesterName}" />
+
+						<Label text="{i18n>Commom.BusinessPlace}" />
+						<SearchField value="{BusinessPlaceName}" enabled="false"/>  
+
+						<Label text="{i18n>Document.Department}" />
+						<SearchField value="{Department}" />
+
+                        <core:Title text="{i18n>Document.DocDates}" />
+                        <Label text="{i18n>Document.DocDate}" />
+                        <DatePicker                        							 
+							id="DocDatePick"
+							value="{
+								path: 'DocDate',type: 'sap.ui.model.type.Date', 
+												formatOptions: {
+													source: {
+														pattern: 'yyyy-MM-dd'
+													},
+													pattern: 'dd/MM/yyyy'
+												}
+								}" 
+							valueFormat="yyyy-MM-dd" 
+							displayFormat="long"
+						/>
+
+                        <Label text="{i18n>Document.DocDueDate}" />
+                        <DatePicker                        							 
+							id="DocDueDatePick"
+							value="{
+								path: 'DocDueDate',
+								type: 'sap.ui.model.type.Date', 
+								formatOptions: {
+									source: {
+										pattern: 'yyyy-MM-dd'
+									},
+									pattern: 'dd/MM/yyyy'
+								}
+								}" 
+							valueFormat="yyyy-MM-dd" 
+							displayFormat="long"
+						/>
+                        <Label text="{i18n>Document.TaxDate}" />
+                        <DatePicker                        							 
+							id="TaxDatePick"
+							value="{
+								path: 'TaxDate',
+								type: 'sap.ui.model.type.Date', 
+								formatOptions: {
+									source: {
+										pattern: 'yyyy-MM-dd'
+										},
+										pattern: 'dd/MM/yyyy'
+									}
+								}" 
+							valueFormat="yyyy-MM-dd" 
+							displayFormat="long"
+						/>
+                        <Label text="{i18n>Document.ReqDate}" />
+                        <DatePicker                        							 
+							id="ReqDatePick"
+							value="{
+								path: 'RequriedDate',
+								type: 'sap.ui.model.type.Date', 
+								formatOptions: {
+									source: {
+										pattern: 'yyyy-MM-dd'
+										},
+										pattern: 'dd/MM/yyyy'
+									}
+								}" 
+							valueFormat="yyyy-MM-dd" 
+							displayFormat="long"
+						/>
+						<core:Title text="{i18n>Document.Obs} "/>
+						<TextArea value="{Comments}" rows="8" />                       
+                    </f:content>
+                </f:SimpleForm>
+            </IconTabFilter>
+            <IconTabFilter
+				text="{i18n>Document.Content}">
+                <Table id="idProductsTable"
+                	mode="MultiSelect"                	
+					inset="false"
+					items="{
+						path: '/DocumentLines',
+						sorter: {
+							path: 'Name'
+						}
+					}">
+                    <headerToolbar>
+                        <Toolbar>
+                            <content>
+                                <Title text="{i18n>Commom.Items}" level="H2"/>								
+                                <ToolbarSpacer />                               
+                               <Button
+								icon="sap-icon://add"
+								press="onAddItem" />
+								<Button icon="sap-icon://delete" press="onRemoveSelections" tooltip="{i18n>Commom.Remove}" />
+                            </content>
+                        </Toolbar>
+                    </headerToolbar>
+                    <columns>
+                        <Column
+							minScreenWidth="Phone">
+							<Text text="{i18n>DocumentLine.ItemCode}" />
+						</Column>
+						<Column 
+								demandPopin="true"
+								hAlign="End"
+								minScreenWidth="Phone">
+							<Text text="{i18n>DocumentLine.QtdReq}" />
+						</Column>
+						<Column 
+							demandPopin="true"
+							hAlign="End"
+							minScreenWidth="Tablet">
+							<Text text="{i18n>DocumentLine.InfoPrice}" />
+						</Column>
+						<Column demandPopin="true"
+						minScreenWidth="Tablet">
+							<Text text="{i18n>Document.ReqDate}" />
+						</Column>
+						<Column demandPopin="true"
+						minScreenWidth="Tablet">
+							<Text text="{i18n>DocumentLine.Distribuition}" />
+						</Column>
+						<Column demandPopin="true"
+						minScreenWidth="Tablet">
+							<Text text="{i18n>Document.Project}" />
+						</Column>
+						<Column demandPopin="true"
+						minScreenWidth="Tablet">
+							<Text text="{i18n>DocumentLine.TotalMC}" />
+						</Column>
+					</columns>
+					<items>
+						<ColumnListItem>
+							<cells>
+								<ObjectIdentifier
+									title="{ItemDescription}"
+									text="{ItemCode}"/>
+								<Input textAlign="Right" type="Number" value="{ path : 'Quantity', type : 'sap.ui.model.type.Integer'}" />
+								
+								<Input textAlign="Right"
+										value="{ path:'Price', type:'sap.ui.model.type.currency', formatter:'.fmt.currency'}" 
+										showValueHelp="true"
+										submit="onSubmitValue" 
+										valueHelpRequest="onFindPriceList" />								
+								
+								<DatePicker                        							 
+									id="LineReqDatePick"
+									value="{
+										path: 'RequiredDate',
+										type: 'sap.ui.model.type.Date', 
+										formatOptions: {
+											source: {
+												pattern: 'yyyy-MM-dd'
+												},
+												pattern: 'dd/MM/yyyy'
+											}
+										}" 
+									valueFormat="yyyy-MM-dd" 
+									displayFormat="long"
+								/>
+								<SearchField value="{CostingCodes}" search="onDistribuitionPress" />
+								<SearchField value="{ProjectCode}" search="onSearchProjectPress" />
+								<ObjectNumber  state="Success"  number="{parts:[{path:'Quantity'},{path:'Price'}], formatter:'.fmt.getTotal'}"  />
+							</cells>
+						</ColumnListItem>
+                    </items>
+                </Table>
+            </IconTabFilter>
+            <IconTabFilter
+				enabled="false"
+				text="{i18n>Document.Attachements}">
+                <Text text="Notes go here ..." />
+            </IconTabFilter>           
+        </items>
+    </IconTabBar>
+</core:FragmentDefinition>

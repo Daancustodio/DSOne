@@ -1,0 +1,51 @@
+<core:View
+	xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:layout="sap.ui.layout"
+    xmlns:microchart="sap.suite.ui.microchart"	
+	height="100%"
+    xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+	controllerName="DecisionsOne.src.pages.dashboard.DashBoard">
+
+	<Page
+		backgroundDesign="Transparent"
+		showHeader="false"
+		id="dashBoardPage">
+        <content>
+            <layout:VerticalLayout class="sapUiResponsiveMargin">
+                <Title
+					titleStyle="H2"					
+					text="{i18n>Commom.Home}"			
+					class="sapUiTinyMarginBegin"/>
+
+                <layout:HorizontalLayout allowWrapping="true">
+                    <GenericTile
+                    frameType="TwoByOne"
+						press="onNavRoute"
+						app:route="drafts"
+						id="tilePendingDocuments"	
+						class="sapUiTinyMarginBegin sapUiTinyMarginTop"
+						header="{i18n>Document.WaitingMeDecision}">
+                        <TileContent footer="{i18n>Document.Documents}">
+                            <content>
+                                <NumericContent icon="sap-icon://pending" scale="QTD" value="{/ApprovalRequestsParams/length}" valueColor="Critical" indicator="Up" />                                
+                            </content>
+                        </TileContent>
+                        <TileContent footer="{i18n>DashBoard.MonthSumary}">
+                            <content>
+                                <microchart:ComparisonMicroChart scale="M" size="Responsive">
+                                    <microchart:data>
+                                        <microchart:ComparisonMicroChartData title="{i18n>Document.Status.O}"
+                                            value="{ApprovalRequestsStatistics>/ApprovedCount}" color="Good" />                                     
+                                        <microchart:ComparisonMicroChartData title="{i18n>Document.Status.N}"
+                                            value="{ApprovalRequestsStatistics>/PendingCount}" color="Critical" />
+                                    </microchart:data>
+                                </microchart:ComparisonMicroChart>
+                            </content>
+                        </TileContent>
+                    </GenericTile>
+                </layout:HorizontalLayout>
+            </layout:VerticalLayout>
+        </content>
+	</Page>
+</core:View>

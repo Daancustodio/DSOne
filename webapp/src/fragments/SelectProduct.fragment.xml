@@ -1,0 +1,19 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<SelectDialog
+		noDataText="{i18n>Commom.NoProducts}"
+		title="{i18n>Commom.SelectProducts}"
+		search="handleSearch"		
+		items="{
+			path: '/'
+		}" >
+		<StandardListItem
+			title="{ItemName}"
+			description="{ItemCode}"
+			icon="{ProductPicUrl}"
+			iconDensityAware="false"
+			iconInset="false"
+			type="Active" />
+	</SelectDialog>
+</core:FragmentDefinition>
